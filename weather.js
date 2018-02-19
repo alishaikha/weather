@@ -45,21 +45,33 @@ let handleWeatherResponse = function(response) {
 
   // **** your code starts here - don't modify anything else. you will be sad.
 
-  for (let i=0; i<response.daily.data.length; i++){
-    let weather = response.daily.data[i];
 
-    let html = '<div class="current">';
-    html = html +'<div class="card-light">';
-    html = html +'<div class="card-body">';
-    html = html +'<h4 class="card-title">' + weather.icon + '</h4>';
-    html = html +'<p class="card-text">' + "Max Temp: " +  weather.temperatureMax + '</p>';
-    html = html +'<p class="card-text">' + weather.summary + '</p>';
-    html = html +'</div></div></div>';
 
-    $(".forecast") .append(html);
-  }
-  $(".forecast").fadeIn();
 
+   $("#current-conditions-icon").empty();
+   $("#current-conditions-text").empty();
+   $(".forecast").empty();
+
+   let current_weather = response.currently;
+   let forecast_weather = response.daily.data;
+
+   let current_icon_html = icon(current_weather.icon);
+   $("#current-conditions-icon").append(current_icon_html);
+
+   let current_summary_html = current_weather.summary;
+   $("#current-conditions-text").append(current_summary_html);
+
+   for (let i=0; i<6; i++){
+     let html = '<div class="col">';
+     html = html + '<h3>' + icon(forecast_weather[i].icon) + '</h3>';
+     html = html + '<h4>' + Math.round(forecast_weather[i].temperatureMax) + " | " + Math.round(forecast_weather[i].temperatureMin) + '</h4>';
+     html = html + '<h5>' + forecast_weather[i].summary + '</h5>';
+     html = html +'</div>';
+     $(".forecast").append(html);
+   }
+
+   $(".current").fadeIn(100);
+   $(".forecast").fadeIn(200);
   // *** your code ends here -- really.
 };
 
