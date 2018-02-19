@@ -52,20 +52,20 @@ let handleWeatherResponse = function(response) {
    $("#current-conditions-text").empty();
    $(".forecast").empty();
 
-   let current_weather = response.currently;
-   let forecast_weather = response.daily.data;
+   let current = response.currently;
+   let forecast = response.daily.data;
 
-   let current_icon_html = icon(current_weather.icon);
+   let current_icon_html = icon(current.icon);
    $("#current-conditions-icon").append(current_icon_html);
 
-   let current_summary_html = current_weather.summary;
+   let current_summary_html = current.summary;
    $("#current-conditions-text").append(current_summary_html);
 
    for (let i=0; i<6; i++){
      let html = '<div class="col">';
-     html = html + '<h3>' + icon(forecast_weather[i].icon) + '</h3>';
-     html = html + '<h4>' + Math.round(forecast_weather[i].temperatureMax) + " | " + Math.round(forecast_weather[i].temperatureMin) + '</h4>';
-     html = html + '<h5>' + forecast_weather[i].summary + '</h5>';
+     html = html + '<h3>' + icon(forecast[i].icon) + '</h3>';
+     html = html + '<h4>' + Math.round(forecast[i].temperatureMax) + " | " + Math.round(forecast[i].temperatureMin) + '</h4>';
+     html = html + '<h5>' + forecast[i].summary + '</h5>';
      html = html +'</div>';
      $(".forecast").append(html);
    }
